@@ -1,0 +1,130 @@
+/ #
+/ # cat /proc/version
+Linux version 5.3.0-rc1-next-20190726-00003-g082a53b828a1-dirty (localhost@localhost) (gcc version 6.3.1 20170109 (Linaro GCC 6.3-2017.02)) #88 SMP PREEMPT Fri Jul 26 16:13:16 IST 2
+019
+/ #
+/ # cat /proc/device-tree/model
+Qualcomm Technologies, Inc. SDM845 MTP/ #
+/ #
+/ # dmesg | grep -i coresight
+[    5.736833] coresight stm0: STM32 initialized
+[    5.748693] coresight etm0: CPU0: ETM v4.2 initialized
+[    5.754316] coresight etm1: CPU1: ETM v4.2 initialized
+[    5.759925] coresight etm2: CPU2: ETM v4.2 initialized
+[    5.765525] coresight etm3: CPU3: ETM v4.2 initialized
+[    5.771180] coresight etm4: CPU4: ETM v4.2 initialized
+[    5.776841] coresight etm5: CPU5: ETM v4.2 initialized
+[    5.782296] coresight etm6: CPU6: ETM v4.2 initialized
+[    5.787947] coresight etm7: CPU7: ETM v4.2 initialized
+/ #
+/ # ls /proc/device-tree/soc/etr@6048000/
+arm,scatter-gather  clocks              in-ports            reg
+clock-names         compatible          name
+/ #
+/ # echo 0x2000000 > /sys/bus/coresight/devices/tmc_etr0/buffer_size
+/ #
+/ # cat /sys/bus/coresight/devices/tmc_etr0/buffer_size
+0x2000000
+/ #
+/ # echo 1 > /sys/bus/coresight/devices/tmc_etr0/enable_sink
+/ #
+/ # cat /sys/bus/coresight/devices/tmc_etr0/enable_sink
+1
+/ #
+/ # cat /sys/bus/coresight/devices/tmc_etr0/mgmt/rwp
+0x0
+/ #
+/ # echo 1 > /sys/bus/coresight/devices/etm0/enable_source
+[   74.764037] coresight tmc_etr0: allocated buffer of size 32768KB in mode 1
+[   74.771016] coresight tmc_etr0: TMC-ETR enabled
+[   74.775617] coresight replicator0: REPLICATOR enabled
+[   74.780747] coresight tmc_etf0: TMC-ETF enabled
+[   74.785343] coresight funnel2: FUNNEL inport 2 enabled
+[   74.790548] coresight funnel1: FUNNEL inport 5 enabled
+[   74.795762] coresight funnel4: FUNNEL inport 0 enabled
+[   74.800978] coresight funnel3: FUNNEL inport 0 enabled
+[   74.806776] coresight etm0: cpu: 0 enable smp call done: 0
+[   74.812317] coresight etm0: ETM tracing enabled
+/ #
+/ # cat /sys/bus/coresight/devices/tmc_etr0/mgmt/rwp
+0x1f1fb4c00
+/ #
+/ # echo 1 > /sys/bus/coresight/devices/etm1/enable_source
+[   88.190980] coresight tmc_etr0: TMC-ETR enabled
+[   88.195006] coresight funnel3: FUNNEL inport 1 enabled
+[   88.201328] coresight etm1: cpu: 1 enable smp call done: 0
+[   88.206869] coresight etm1: ETM tracing enabled
+/ #
+/ # cat /sys/bus/coresight/devices/tmc_etr0/mgmt/rwp
+0x1f1465400
+/ #
+[ # echo 1 > /sys/bus/coresight/devices/etm2/enable_source
+ [  103.221564] coresight funnel3: FUNNEL inport 2 enabled
+[  103.227341] coresight etm2: cpu: 2 enable smp call done: 0
+[  103.232877] coresight etm2: ETM tracing enabled
+/ #
+/ # cat /sys/bus/coresight/devices/tmc_etr0/mgmt/rwp
+0x1f1515b80
+/ #
+[ # echo 1 > /sys/bus/coresight/devices/etm3/enable_source
+ [  107.701786] coresight funnel3: FUNNEL inport 3 enabled
+[  107.707652] coresight etm3: cpu: 3 enable smp call done: 0
+[  107.713188] coresight etm3: ETM tracing enabled
+/ #
+/ #
+/ # cat /sys/bus/coresight/devices/tmc_etr0/mgmt/rwp
+0x1f15c6280
+/ #
+[ # echo 1 > /sys/bus/coresight/devices/etm4/enable_source
+ [  111.661810] coresight funnel3: FUNNEL inport 4 enabled
+[  111.667739] coresight etm4: cpu: 4 enable smp call done: 0
+[  111.673279] coresight etm4: ETM tracing enabled
+/ #
+/ # cat /sys/bus/coresight/devices/tmc_etr0/mgmt/rwp
+0x1f162b000
+/ #
+[ # echo 1 > /sys/bus/coresight/devices/etm5/enable_source
+ [  115.628953] coresight funnel3: FUNNEL inport 5 enabled
+[  115.634887] coresight etm5: cpu: 5 enable smp call done: 0
+[  115.640428] coresight etm5: ETM tracing enabled
+/ #
+/ # cat /sys/bus/coresight/devices/tmc_etr0/mgmt/rwp
+0x1f1690980
+/ #
+[ # echo 1 > /sys/bus/coresight/devices/etm6/enable_source
+ [  123.109503] coresight funnel3: FUNNEL inport 6 enabled
+[  123.115556] coresight etm6: cpu: 6 enable smp call done: 0
+[  123.121097] coresight etm6: ETM tracing enabled
+/ #
+/ # cat /sys/bus/coresight/devices/tmc_etr0/mgmt/rwp
+0x1f16f5700
+/ #
+/ # echo 1 > /sys/bus/coresight/devices/etm6/enabl[  127.098507] random: crng init done
+/ # echo 1 > /sys/bus/coresight/devices/etm5/enable_source
+/ #
+/ #
+/ #
+/ # echo 1 > /sys/bus/coresight/devices/etm7[  139.319533] coresight tmc_etr0: TMC-ETR enabled
+[enable_source
+ [  139.331143] coresight etm7: cpu: 7 enable smp call done: 0
+[  139.335719] coresight etm7: ETM tracing enabled
+/ #
+/ #
+/ # cat /sys/bus/coresight/devices/tmc_etr0/mgmt/rwp
+0x1f17aff00
+/ #
+/ #
+/ # dd if=/dev/tmc_etr0 of=cstraceitm.bin
+[  160.060465] coresight tmc_etr0: TMC read start
+[  160.064999] coresight tmc_etr0: tmc_open: successfully opened
+[  160.104254] coresight tmc_etr0: TMC read end
+[  160.108591] coresight tmc_etr0: tmc_release: released
+9559+1 records in
+9559+1 records out
+4894576 bytes (4.7MB) copied, 0.053954 seconds, 86.5MB/s
+/ #
+/ #
+/ # ls -lh cstraceitm.bin
+-rw-r--r--    1 root     0           4.7M Jan  1 00:02 cstraceitm.bin
+/ #
+/ #
