@@ -1,0 +1,92 @@
+/ #
+/ # cat /proc/version
+Linux version 5.3.0-rc7-next-20190904-00004-g39ed96d89f87-dirty (localhost@localhost) (gcc version 6.3.1 20170109 (Linaro GCC 6.3-2017.02)) #30 SMP PREEMPT Mon Sep 9 21:48:44 IST 20
+19
+/ #
+/ # cat /proc/device-tree/model
+Qualcomm Technologies, Inc. MSM8998 v1 MTP/ #
+/ #
+/ # [  140.132284] random: crng init done
+
+/ # dmesg | grep -i coresight
+[    5.752381] coresight-etm4x 7c40000.etm: Uses obsolete Coresight DT bindings
+[    5.752903] coresight etm4: CPU4: ETM v4.0 initialized
+[    5.759454] coresight etm5: CPU5: ETM v4.0 initialized
+[    5.776690] coresight etm6: CPU6: ETM v4.0 initialized
+[    5.778140] coresight etm7: CPU7: ETM v4.0 initialized
+[    5.783393] coresight etm0: CPU0: ETM v4.0 initialized
+[    5.786378] coresight etm1: CPU1: ETM v4.0 initialized
+[    5.791703] coresight etm2: CPU2: ETM v4.0 initialized
+[    5.796947] coresight etm3: CPU3: ETM v4.0 initialized
+/ #
+/ #
+/ # ls /proc/device-tree/soc/etr@6048000/
+arm,scatter-gather  clocks              in-ports            reg
+clock-names         compatible          name
+/ #
+/ #
+/ # echo 0x2000000 > /sys/bus/coresight/devices/tmc_etr0/buffer_size
+/ #
+/ # cat /sys/bus/coresight/devices/tmc_etr0/buffer_size
+0x2000000
+/ #
+/ # echo 1 > /sys/bus/coresight/devices/tmc_etr0/enable_sink
+/ #
+/ # cat /sys/bus/coresight/devices/tmc_etr0/enable_sink
+1
+/ #
+/ # cat /sys/bus/coresight/devices/tmc_etr0/mgmt/rwp
+0x0
+/ #
+/ # echo 1 > /sys/bus/coresight/devices/etm0/enable_source
+/ #
+/ #
+/ # cat /sys/bus/coresight/devices/tmc_etr0/mgmt/rwp
+0x175ffff80
+/ #
+/ # echo 1 > /sys/bus/coresight/devices/etm1/enable_source
+/ #
+/ # cat /sys/bus/coresight/devices/tmc_etr0/mgmt/rwp
+0x175d7f180
+/ #
+/ # echo 1 > /sys/bus/coresight/devices/etm2/enable_source
+/ #
+/ # cat /sys/bus/coresight/devices/tmc_etr0/mgmt/rwp
+0x1762ed100
+/ #
+/ # echo 1 > /sys/bus/coresight/devices/etm3/enable_source
+/ #
+/ # cat /sys/bus/coresight/devices/tmc_etr0/mgmt/rwp
+0x17593c680
+/ #
+/ # echo 1 > /sys/bus/coresight/devices/etm4/enable_source
+/ #
+/ # cat /sys/bus/coresight/devices/tmc_etr0/mgmt/rwp
+0x1750f3680
+/ #
+/ # echo 1 > /sys/bus/coresight/devices/etm5/enable_source
+/ #
+/ # cat /sys/bus/coresight/devices/tmc_etr0/mgmt/rwp
+0x1753a8500
+/ #
+/ # echo 1 > /sys/bus/coresight/devices/etm6/enable_source
+/ #
+/ # cat /sys/bus/coresight/devices/tmc_etr0/mgmt/rwp
+0x174f20100
+/ #
+/ # echo 1 > /sys/bus/coresight/devices/etm7/enable_source
+/ #
+/ # cat /sys/bus/coresight/devices/tmc_etr0/mgmt/rwp
+0x1752d5300
+/ #
+/ # dd if=/dev/tmc_etr0 of=cstraceitm.bin
+65535+2 records in
+65535+2 records out
+33554432 bytes (32.0MB) copied, 1.461942 seconds, 21.9MB/s
+/ #
+/ #
+/ #
+/ #
+/ # ls -lh cstraceitm.bin
+-rw-r--r--    1 root     0          32.0M Jan  1 00:04 cstraceitm.bin
+/ #
